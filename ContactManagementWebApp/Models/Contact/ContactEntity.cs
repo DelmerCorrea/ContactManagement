@@ -1,4 +1,5 @@
 ﻿using ContactManagementWebApp.Models.Audit;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace ContactManagementWebApp.Models.Contact
     public class ContactEntity : AuditableEntity<int, string>, ISoftDelete<string>
     {
         [Required]
-        [MinLength(6,  ErrorMessage = "Name should be a string of any size greater or equal to {0}")]
+        [MinLength(6,  ErrorMessage = "Name should be a string of any size greater or equal to {1}")]
         public string Name { get; set; }
 
         [Required]
@@ -21,7 +22,9 @@ namespace ContactManagementWebApp.Models.Contact
         [EmailAddress(ErrorMessage = "Email should be a valid email")]
         public string EmailAddress { get; set; }
 
+        [ValidateNever]
         public DateTime? DeletedAt { get; set; }
-        public string DeletedBy { get; set; }
+        [ValidateNever]
+        public string? DeletedBy { get; set; }
     }
 }
