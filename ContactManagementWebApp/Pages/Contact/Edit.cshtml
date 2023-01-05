@@ -1,0 +1,75 @@
+﻿@page
+@model ContactManagementWebApp.Pages.Contact.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ContactEntity</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.Name" class="control-label"></label>
+                <input asp-for="ContactEntity.Name" class="form-control" />
+                <span asp-validation-for="ContactEntity.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.Contact" class="control-label"></label>
+                <input asp-for="ContactEntity.Contact" class="form-control" />
+                <span asp-validation-for="ContactEntity.Contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.EmailAddress" class="control-label"></label>
+                <input asp-for="ContactEntity.EmailAddress" class="form-control" />
+                <span asp-validation-for="ContactEntity.EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.DeletedAt" class="control-label"></label>
+                <input asp-for="ContactEntity.DeletedAt" class="form-control" />
+                <span asp-validation-for="ContactEntity.DeletedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.DeletedBy" class="control-label"></label>
+                <input asp-for="ContactEntity.DeletedBy" class="form-control" />
+                <span asp-validation-for="ContactEntity.DeletedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.CreatedAt" class="control-label"></label>
+                <input asp-for="ContactEntity.CreatedAt" class="form-control" />
+                <span asp-validation-for="ContactEntity.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.UpdatedAt" class="control-label"></label>
+                <input asp-for="ContactEntity.UpdatedAt" class="form-control" />
+                <span asp-validation-for="ContactEntity.UpdatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.CreatedBy" class="control-label"></label>
+                <input asp-for="ContactEntity.CreatedBy" class="form-control" />
+                <span asp-validation-for="ContactEntity.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactEntity.UpdatedBy" class="control-label"></label>
+                <input asp-for="ContactEntity.UpdatedBy" class="form-control" />
+                <span asp-validation-for="ContactEntity.UpdatedBy" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ContactEntity.Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
