@@ -2,6 +2,7 @@
 using ContactManagementWebApp.Repositories;
 using ContactManagementWebApp.Repositories.Contact;
 using ContactManagementWebApp.Services;
+using ContactManagementWebApp.Services.Contact;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -46,6 +47,9 @@ namespace ContactManagementWebApp
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IContactRepository, ContactRepository>();
+
+            services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+            services.AddScoped<IContactService, ContactService>();
 
             services.AddRazorPages();
         }
