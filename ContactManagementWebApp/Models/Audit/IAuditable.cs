@@ -1,19 +1,16 @@
 ﻿namespace ContactManagementWebApp.Models.Audit
 {
-    public interface IAuditableEntity<TUser>
+    public interface IAuditable<TUser>
     {
         DateTime CreatedAt { get; set; }
         DateTime? UpdatedAt { get; set; }
-        DateTime? DeletedAt { get; set; }
         TUser CreatedBy { get; set; }
         TUser UpdatedBy { get; set; }
-        TUser DeletedBy { get; set; }
     }
 
-    public interface IAuditableEntity
+    public interface IAuditable
     {
         DateTime CreatedAt { get; set; }
         DateTime? UpdatedAt { get; set; }
-        DateTime? DeletedAt { get; set; }
     }
 }

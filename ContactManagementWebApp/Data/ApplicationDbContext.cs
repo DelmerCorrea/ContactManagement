@@ -2,6 +2,7 @@
 using ContactManagementWebApp.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ContactManagementWebApp.Data
 {
@@ -13,6 +14,12 @@ namespace ContactManagementWebApp.Data
             : base(options)
         {
             _currentUserService = currentUserService;
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //TODO: Check if can filter all by default
+            //builder.FilterSoftDeletedEntries<Contact>();
         }
 
         public override int SaveChanges()
