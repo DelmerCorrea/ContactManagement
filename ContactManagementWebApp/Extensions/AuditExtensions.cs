@@ -6,7 +6,7 @@ namespace ContactManagementWebApp.Extensions
 {
     public static class AuditExtensions
     {
-        public static void FilterSoftDeletedEntries<TModel>(this ModelBuilder builder) where TModel : SoftDeleteEntity
+        public static void FilterSoftDeletedEntries<TModel>(this ModelBuilder builder) where TModel : class, ISoftDelete
         {
             builder.Entity<TModel>()
                     .HasQueryFilter(p => p.DeletedAt == null);

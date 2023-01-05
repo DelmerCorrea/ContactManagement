@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.AccessControl;
 using System;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using ContactManagementWebApp.Models.Contact;
 
 namespace ContactManagementWebApp.Data
 {
@@ -13,6 +14,7 @@ namespace ContactManagementWebApp.Data
     {
         private readonly ICurrentUserService _currentUserService;
         public DbSet<Audit> AuditLogs { get; set; }
+        public DbSet<ContactEntity> Contacts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ICurrentUserService currentUserService)
             : base(options)
@@ -23,7 +25,7 @@ namespace ContactManagementWebApp.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //TODO: Check if can filter all by default
-            //builder.FilterSoftDeletedEntries<Contact>();
+            builder.FilterSoftDeletedEntries<ContactEntity>();
         }
 
         public override int SaveChanges()

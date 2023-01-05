@@ -1,4 +1,7 @@
 ﻿using ContactManagementWebApp.Data;
+using ContactManagementWebApp.Repositories;
+using ContactManagementWebApp.Repositories.Contact;
+using ContactManagementWebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +40,12 @@ namespace ContactManagementWebApp
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IContactRepository, ContactRepository>();
 
             services.AddRazorPages();
         }

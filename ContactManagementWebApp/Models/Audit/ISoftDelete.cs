@@ -1,8 +1,7 @@
 ﻿namespace ContactManagementWebApp.Models.Audit
 {
-    public interface ISoftDelete<TUser>
+    public interface ISoftDelete<TUser> : ISoftDelete
     {
-        DateTime? DeletedAt { get; set; }
         TUser DeletedBy { get; set; }
     }
 
