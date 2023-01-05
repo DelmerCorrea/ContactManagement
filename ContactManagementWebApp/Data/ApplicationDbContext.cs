@@ -7,6 +7,8 @@ using System.Security.AccessControl;
 using System;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using ContactManagementWebApp.Models.Contact;
+using System.Reflection.Emit;
+using Microsoft.AspNetCore.Identity;
 
 namespace ContactManagementWebApp.Data
 {
@@ -24,8 +26,12 @@ namespace ContactManagementWebApp.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            SeedDefaultUser(builder);
+
             //TODO: Check if can filter all by default
             builder.FilterSoftDeletedEntries<ContactEntity>();
+
+            base.OnModelCreating(builder);
         }
 
         public override int SaveChanges()
@@ -94,6 +100,45 @@ namespace ContactManagementWebApp.Data
             {
                 AuditLogs.Add(auditEntry.ToAudit());
             }
+        }
+
+        private void SeedDefaultUser(ModelBuilder builder)
+        {
+            string ADMIN_ID = "02174cf0–9412–4cfe-afbf-59f706d72cf6";
+            string ROLE_ID = "341743f0-asd2–42de-afbf-59kmkkmk72cf6";
+
+            //seed admin role
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                Id = ROLE_ID,
+                ConcurrencyStamp = ROLE_ID
+            });
+
+            //create user
+            var appUser = new IdentityUser
+            {
+                Id = ADMIN_ID,
+                Email = "alfasoft@alfasoft.com",
+                EmailConfirmed = true,
+                UserName = "alfasoft@alfasoft.com",
+                NormalizedUserName = "ALFASOFT@ALFASOFT.COM"
+            };
+
+            //set user password
+            PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
+            appUser.PasswordHash = ph.HashPassword(appUser, "alfasoft");
+
+            //seed user
+            builder.Entity<IdentityUser>().HasData(appUser);
+
+            //set user role to admin
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
         }
     }
 }
